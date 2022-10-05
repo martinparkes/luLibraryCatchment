@@ -8,10 +8,14 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
-        #map {
-            width: 864px;
-            height: 704px;
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
         }
         </style>
         <title></title>
@@ -28,32 +32,27 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
         <script src="data/libraryLocations5a_1.js"></script>
-        <script src="data/libraryLocations5b_2.js"></script>
-        <script src="data/libraryLocations5c_3.js"></script>
-        <script src="data/libraryLocations5d_4.js"></script>
-        <script src="data/libraryLocations5e_5.js"></script>
-        <script src="data/libraryLocations5f_6.js"></script>
-        <script src="data/libraryLocations5g_7.js"></script>
-        <script src="data/libraryLocations5h_8.js"></script>
-        <script src="data/libraryLocations5i_9.js"></script>
-        <script src="data/libraryLocations5j_10.js"></script>
-        <script src="data/libraryLocations5k_11.js"></script>
-        <script src="data/Isochrones_12.js"></script>
-        <script src="data/Isochrones_13.js"></script>
-        <script src="data/Isochrones_14.js"></script>
-        <script src="data/Isochrones_15.js"></script>
-        <script src="data/Isochrones_16.js"></script>
-        <script src="data/Isochrones_17.js"></script>
-        <script src="data/Isochrones_18.js"></script>
-        <script src="data/Isochrones_19.js"></script>
-        <script src="data/Isochrones_20.js"></script>
-        <script src="data/Isochrones_21.js"></script>
-        <script src="data/Isochrones_22.js"></script>
+        <script src="data/DriveTimescopy_2.js"></script>
+        <script src="data/DriveTimes10mins_3.js"></script>
+        <script src="data/DriveTimes5mins_4.js"></script>
+        <script src="data/libraryLocations5b_5.js"></script>
+        <script src="data/libraryLocations5c_6.js"></script>
+        <script src="data/libraryLocations5d_7.js"></script>
+        <script src="data/libraryLocations5e_8.js"></script>
+        <script src="data/libraryLocations5f_9.js"></script>
+        <script src="data/libraryLocations5g_10.js"></script>
+        <script src="data/libraryLocations5h_11.js"></script>
+        <script src="data/libraryLocations5i_12.js"></script>
+        <script src="data/libraryLocations5j_13.js"></script>
+        <script src="data/libraryLocations5k_14.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[50.202647948634144,-5.673838617904919],[51.719282908018435,-2.715173596602277]]);
+        }).fitBounds([[49.93026253659968,-5.132173897064543],[51.45563021543484,-2.1735088757618977]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -124,7 +123,295 @@
         });
         bounds_group.addLayer(layer_libraryLocations5a_1);
         map.addLayer(layer_libraryLocations5a_1);
-        function pop_libraryLocations5b_2(feature, layer) {
+        function pop_DriveTimescopy_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Library</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Travel Time (mins)</strong><br />' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Travel Mode:</strong><br />' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Population:</strong><br />' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DriveTimescopy_2_0(feature) {
+            switch(String(feature.properties['AA_MINS'])) {
+                case '5':
+                    return {
+                pane: 'pane_DriveTimescopy_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,1,84,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '10':
+                    return {
+                pane: 'pane_DriveTimescopy_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(49,104,142,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '20':
+                    return {
+                pane: 'pane_DriveTimescopy_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(53,183,121,0.5)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_DriveTimescopy_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,231,37,0.5)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_DriveTimescopy_2');
+        map.getPane('pane_DriveTimescopy_2').style.zIndex = 402;
+        map.getPane('pane_DriveTimescopy_2').style['mix-blend-mode'] = 'normal';
+        var layer_DriveTimescopy_2 = new L.geoJson(json_DriveTimescopy_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DriveTimescopy_2',
+            layerName: 'layer_DriveTimescopy_2',
+            pane: 'pane_DriveTimescopy_2',
+            onEachFeature: pop_DriveTimescopy_2,
+            style: style_DriveTimescopy_2_0,
+        });
+        bounds_group.addLayer(layer_DriveTimescopy_2);
+        map.addLayer(layer_DriveTimescopy_2);
+        function pop_DriveTimes10mins_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Library</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Travel Time (mins)</strong><br />' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Travel Mode:</strong><br />' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Population:</strong><br />' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DriveTimes10mins_3_0(feature) {
+            switch(String(feature.properties['AA_MINS'])) {
+                case '5':
+                    return {
+                pane: 'pane_DriveTimes10mins_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,1,84,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '10':
+                    return {
+                pane: 'pane_DriveTimes10mins_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(49,104,142,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '20':
+                    return {
+                pane: 'pane_DriveTimes10mins_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(53,183,121,0.5)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_DriveTimes10mins_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,231,37,0.5)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_DriveTimes10mins_3');
+        map.getPane('pane_DriveTimes10mins_3').style.zIndex = 403;
+        map.getPane('pane_DriveTimes10mins_3').style['mix-blend-mode'] = 'normal';
+        var layer_DriveTimes10mins_3 = new L.geoJson(json_DriveTimes10mins_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DriveTimes10mins_3',
+            layerName: 'layer_DriveTimes10mins_3',
+            pane: 'pane_DriveTimes10mins_3',
+            onEachFeature: pop_DriveTimes10mins_3,
+            style: style_DriveTimes10mins_3_0,
+        });
+        bounds_group.addLayer(layer_DriveTimes10mins_3);
+        map.addLayer(layer_DriveTimes10mins_3);
+        function pop_DriveTimes5mins_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Library</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Travel Time (mins)</strong><br />' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Travel Mode:</strong><br />' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Population:</strong><br />' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DriveTimes5mins_4_0(feature) {
+            switch(String(feature.properties['AA_MINS'])) {
+                case '5':
+                    return {
+                pane: 'pane_DriveTimes5mins_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,1,84,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '10':
+                    return {
+                pane: 'pane_DriveTimes5mins_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(49,104,142,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '20':
+                    return {
+                pane: 'pane_DriveTimes5mins_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(53,183,121,0.5)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_DriveTimes5mins_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,231,37,0.5)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_DriveTimes5mins_4');
+        map.getPane('pane_DriveTimes5mins_4').style.zIndex = 404;
+        map.getPane('pane_DriveTimes5mins_4').style['mix-blend-mode'] = 'normal';
+        var layer_DriveTimes5mins_4 = new L.geoJson(json_DriveTimes5mins_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DriveTimes5mins_4',
+            layerName: 'layer_DriveTimes5mins_4',
+            pane: 'pane_DriveTimes5mins_4',
+            onEachFeature: pop_DriveTimes5mins_4,
+            style: style_DriveTimes5mins_4_0,
+        });
+        bounds_group.addLayer(layer_DriveTimes5mins_4);
+        map.addLayer(layer_DriveTimes5mins_4);
+        function pop_libraryLocations5b_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -139,9 +426,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5b_2_0() {
+        function style_libraryLocations5b_5_0() {
             return {
-                pane: 'pane_libraryLocations5b_2',
+                pane: 'pane_libraryLocations5b_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -155,27 +442,27 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5b_2');
-        map.getPane('pane_libraryLocations5b_2').style.zIndex = 402;
-        map.getPane('pane_libraryLocations5b_2').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5b_2 = new L.geoJson(json_libraryLocations5b_2, {
+        map.createPane('pane_libraryLocations5b_5');
+        map.getPane('pane_libraryLocations5b_5').style.zIndex = 405;
+        map.getPane('pane_libraryLocations5b_5').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5b_5 = new L.geoJson(json_libraryLocations5b_5, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5b_2',
-            layerName: 'layer_libraryLocations5b_2',
-            pane: 'pane_libraryLocations5b_2',
-            onEachFeature: pop_libraryLocations5b_2,
+            dataVar: 'json_libraryLocations5b_5',
+            layerName: 'layer_libraryLocations5b_5',
+            pane: 'pane_libraryLocations5b_5',
+            onEachFeature: pop_libraryLocations5b_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5b_2_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5b_5_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5b_2);
-        map.addLayer(layer_libraryLocations5b_2);
-        function pop_libraryLocations5c_3(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5b_5);
+        map.addLayer(layer_libraryLocations5b_5);
+        function pop_libraryLocations5c_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -190,9 +477,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5c_3_0() {
+        function style_libraryLocations5c_6_0() {
             return {
-                pane: 'pane_libraryLocations5c_3',
+                pane: 'pane_libraryLocations5c_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -206,30 +493,30 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5c_3');
-        map.getPane('pane_libraryLocations5c_3').style.zIndex = 403;
-        map.getPane('pane_libraryLocations5c_3').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5c_3 = new L.geoJson(json_libraryLocations5c_3, {
+        map.createPane('pane_libraryLocations5c_6');
+        map.getPane('pane_libraryLocations5c_6').style.zIndex = 406;
+        map.getPane('pane_libraryLocations5c_6').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5c_6 = new L.geoJson(json_libraryLocations5c_6, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5c_3',
-            layerName: 'layer_libraryLocations5c_3',
-            pane: 'pane_libraryLocations5c_3',
-            onEachFeature: pop_libraryLocations5c_3,
+            dataVar: 'json_libraryLocations5c_6',
+            layerName: 'layer_libraryLocations5c_6',
+            pane: 'pane_libraryLocations5c_6',
+            onEachFeature: pop_libraryLocations5c_6,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5c_3_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5c_6_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5c_3);
-        map.addLayer(layer_libraryLocations5c_3);
-        function pop_libraryLocations5d_4(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5c_6);
+        map.addLayer(layer_libraryLocations5c_6);
+        function pop_libraryLocations5d_7(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
@@ -241,9 +528,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5d_4_0() {
+        function style_libraryLocations5d_7_0() {
             return {
-                pane: 'pane_libraryLocations5d_4',
+                pane: 'pane_libraryLocations5d_7',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -257,27 +544,27 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5d_4');
-        map.getPane('pane_libraryLocations5d_4').style.zIndex = 404;
-        map.getPane('pane_libraryLocations5d_4').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5d_4 = new L.geoJson(json_libraryLocations5d_4, {
+        map.createPane('pane_libraryLocations5d_7');
+        map.getPane('pane_libraryLocations5d_7').style.zIndex = 407;
+        map.getPane('pane_libraryLocations5d_7').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5d_7 = new L.geoJson(json_libraryLocations5d_7, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5d_4',
-            layerName: 'layer_libraryLocations5d_4',
-            pane: 'pane_libraryLocations5d_4',
-            onEachFeature: pop_libraryLocations5d_4,
+            dataVar: 'json_libraryLocations5d_7',
+            layerName: 'layer_libraryLocations5d_7',
+            pane: 'pane_libraryLocations5d_7',
+            onEachFeature: pop_libraryLocations5d_7,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5d_4_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5d_7_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5d_4);
-        map.addLayer(layer_libraryLocations5d_4);
-        function pop_libraryLocations5e_5(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5d_7);
+        map.addLayer(layer_libraryLocations5d_7);
+        function pop_libraryLocations5e_8(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -292,9 +579,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5e_5_0() {
+        function style_libraryLocations5e_8_0() {
             return {
-                pane: 'pane_libraryLocations5e_5',
+                pane: 'pane_libraryLocations5e_8',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -308,27 +595,27 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5e_5');
-        map.getPane('pane_libraryLocations5e_5').style.zIndex = 405;
-        map.getPane('pane_libraryLocations5e_5').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5e_5 = new L.geoJson(json_libraryLocations5e_5, {
+        map.createPane('pane_libraryLocations5e_8');
+        map.getPane('pane_libraryLocations5e_8').style.zIndex = 408;
+        map.getPane('pane_libraryLocations5e_8').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5e_8 = new L.geoJson(json_libraryLocations5e_8, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5e_5',
-            layerName: 'layer_libraryLocations5e_5',
-            pane: 'pane_libraryLocations5e_5',
-            onEachFeature: pop_libraryLocations5e_5,
+            dataVar: 'json_libraryLocations5e_8',
+            layerName: 'layer_libraryLocations5e_8',
+            pane: 'pane_libraryLocations5e_8',
+            onEachFeature: pop_libraryLocations5e_8,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5e_5_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5e_8_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5e_5);
-        map.addLayer(layer_libraryLocations5e_5);
-        function pop_libraryLocations5f_6(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5e_8);
+        map.addLayer(layer_libraryLocations5e_8);
+        function pop_libraryLocations5f_9(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -343,9 +630,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5f_6_0() {
+        function style_libraryLocations5f_9_0() {
             return {
-                pane: 'pane_libraryLocations5f_6',
+                pane: 'pane_libraryLocations5f_9',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -359,27 +646,27 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5f_6');
-        map.getPane('pane_libraryLocations5f_6').style.zIndex = 406;
-        map.getPane('pane_libraryLocations5f_6').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5f_6 = new L.geoJson(json_libraryLocations5f_6, {
+        map.createPane('pane_libraryLocations5f_9');
+        map.getPane('pane_libraryLocations5f_9').style.zIndex = 409;
+        map.getPane('pane_libraryLocations5f_9').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5f_9 = new L.geoJson(json_libraryLocations5f_9, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5f_6',
-            layerName: 'layer_libraryLocations5f_6',
-            pane: 'pane_libraryLocations5f_6',
-            onEachFeature: pop_libraryLocations5f_6,
+            dataVar: 'json_libraryLocations5f_9',
+            layerName: 'layer_libraryLocations5f_9',
+            pane: 'pane_libraryLocations5f_9',
+            onEachFeature: pop_libraryLocations5f_9,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5f_6_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5f_9_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5f_6);
-        map.addLayer(layer_libraryLocations5f_6);
-        function pop_libraryLocations5g_7(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5f_9);
+        map.addLayer(layer_libraryLocations5f_9);
+        function pop_libraryLocations5g_10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -394,9 +681,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5g_7_0() {
+        function style_libraryLocations5g_10_0() {
             return {
-                pane: 'pane_libraryLocations5g_7',
+                pane: 'pane_libraryLocations5g_10',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -410,44 +697,44 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5g_7');
-        map.getPane('pane_libraryLocations5g_7').style.zIndex = 407;
-        map.getPane('pane_libraryLocations5g_7').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5g_7 = new L.geoJson(json_libraryLocations5g_7, {
+        map.createPane('pane_libraryLocations5g_10');
+        map.getPane('pane_libraryLocations5g_10').style.zIndex = 410;
+        map.getPane('pane_libraryLocations5g_10').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5g_10 = new L.geoJson(json_libraryLocations5g_10, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5g_7',
-            layerName: 'layer_libraryLocations5g_7',
-            pane: 'pane_libraryLocations5g_7',
-            onEachFeature: pop_libraryLocations5g_7,
+            dataVar: 'json_libraryLocations5g_10',
+            layerName: 'layer_libraryLocations5g_10',
+            pane: 'pane_libraryLocations5g_10',
+            onEachFeature: pop_libraryLocations5g_10,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5g_7_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5g_10_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5g_7);
-        map.addLayer(layer_libraryLocations5g_7);
-        function pop_libraryLocations5h_8(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5g_10);
+        map.addLayer(layer_libraryLocations5g_10);
+        function pop_libraryLocations5h_11(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>latitude</strong><br />' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Library Name</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5h_8_0() {
+        function style_libraryLocations5h_11_0() {
             return {
-                pane: 'pane_libraryLocations5h_8',
+                pane: 'pane_libraryLocations5h_11',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -461,30 +748,30 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5h_8');
-        map.getPane('pane_libraryLocations5h_8').style.zIndex = 408;
-        map.getPane('pane_libraryLocations5h_8').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5h_8 = new L.geoJson(json_libraryLocations5h_8, {
+        map.createPane('pane_libraryLocations5h_11');
+        map.getPane('pane_libraryLocations5h_11').style.zIndex = 411;
+        map.getPane('pane_libraryLocations5h_11').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5h_11 = new L.geoJson(json_libraryLocations5h_11, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5h_8',
-            layerName: 'layer_libraryLocations5h_8',
-            pane: 'pane_libraryLocations5h_8',
-            onEachFeature: pop_libraryLocations5h_8,
+            dataVar: 'json_libraryLocations5h_11',
+            layerName: 'layer_libraryLocations5h_11',
+            pane: 'pane_libraryLocations5h_11',
+            onEachFeature: pop_libraryLocations5h_11,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5h_8_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5h_11_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5h_8);
-        map.addLayer(layer_libraryLocations5h_8);
-        function pop_libraryLocations5i_9(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5h_11);
+        map.addLayer(layer_libraryLocations5h_11);
+        function pop_libraryLocations5i_12(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
@@ -496,9 +783,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5i_9_0() {
+        function style_libraryLocations5i_12_0() {
             return {
-                pane: 'pane_libraryLocations5i_9',
+                pane: 'pane_libraryLocations5i_12',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -512,30 +799,30 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5i_9');
-        map.getPane('pane_libraryLocations5i_9').style.zIndex = 409;
-        map.getPane('pane_libraryLocations5i_9').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5i_9 = new L.geoJson(json_libraryLocations5i_9, {
+        map.createPane('pane_libraryLocations5i_12');
+        map.getPane('pane_libraryLocations5i_12').style.zIndex = 412;
+        map.getPane('pane_libraryLocations5i_12').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5i_12 = new L.geoJson(json_libraryLocations5i_12, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5i_9',
-            layerName: 'layer_libraryLocations5i_9',
-            pane: 'pane_libraryLocations5i_9',
-            onEachFeature: pop_libraryLocations5i_9,
+            dataVar: 'json_libraryLocations5i_12',
+            layerName: 'layer_libraryLocations5i_12',
+            pane: 'pane_libraryLocations5i_12',
+            onEachFeature: pop_libraryLocations5i_12,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5i_9_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5i_12_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5i_9);
-        map.addLayer(layer_libraryLocations5i_9);
-        function pop_libraryLocations5j_10(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5i_12);
+        map.addLayer(layer_libraryLocations5i_12);
+        function pop_libraryLocations5j_13(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
@@ -547,9 +834,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5j_10_0() {
+        function style_libraryLocations5j_13_0() {
             return {
-                pane: 'pane_libraryLocations5j_10',
+                pane: 'pane_libraryLocations5j_13',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -563,27 +850,27 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5j_10');
-        map.getPane('pane_libraryLocations5j_10').style.zIndex = 410;
-        map.getPane('pane_libraryLocations5j_10').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5j_10 = new L.geoJson(json_libraryLocations5j_10, {
+        map.createPane('pane_libraryLocations5j_13');
+        map.getPane('pane_libraryLocations5j_13').style.zIndex = 413;
+        map.getPane('pane_libraryLocations5j_13').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5j_13 = new L.geoJson(json_libraryLocations5j_13, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5j_10',
-            layerName: 'layer_libraryLocations5j_10',
-            pane: 'pane_libraryLocations5j_10',
-            onEachFeature: pop_libraryLocations5j_10,
+            dataVar: 'json_libraryLocations5j_13',
+            layerName: 'layer_libraryLocations5j_13',
+            pane: 'pane_libraryLocations5j_13',
+            onEachFeature: pop_libraryLocations5j_13,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5j_10_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5j_13_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5j_10);
-        map.addLayer(layer_libraryLocations5j_10);
-        function pop_libraryLocations5k_11(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5j_13);
+        map.addLayer(layer_libraryLocations5j_13);
+        function pop_libraryLocations5k_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -592,15 +879,15 @@
                         <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Library Name</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5k_11_0() {
+        function style_libraryLocations5k_14_0() {
             return {
-                pane: 'pane_libraryLocations5k_11',
+                pane: 'pane_libraryLocations5k_14',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -614,819 +901,259 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_libraryLocations5k_11');
-        map.getPane('pane_libraryLocations5k_11').style.zIndex = 411;
-        map.getPane('pane_libraryLocations5k_11').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5k_11 = new L.geoJson(json_libraryLocations5k_11, {
+        map.createPane('pane_libraryLocations5k_14');
+        map.getPane('pane_libraryLocations5k_14').style.zIndex = 414;
+        map.getPane('pane_libraryLocations5k_14').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5k_14 = new L.geoJson(json_libraryLocations5k_14, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_libraryLocations5k_11',
-            layerName: 'layer_libraryLocations5k_11',
-            pane: 'pane_libraryLocations5k_11',
-            onEachFeature: pop_libraryLocations5k_11,
+            dataVar: 'json_libraryLocations5k_14',
+            layerName: 'layer_libraryLocations5k_14',
+            pane: 'pane_libraryLocations5k_14',
+            onEachFeature: pop_libraryLocations5k_14,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5k_11_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5k_14_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5k_11);
-        map.addLayer(layer_libraryLocations5k_11);
-        function pop_Isochrones_12(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_12_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_12',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_12',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_12');
-        map.getPane('pane_Isochrones_12').style.zIndex = 412;
-        map.getPane('pane_Isochrones_12').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_12 = new L.geoJson(json_Isochrones_12, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_12',
-            layerName: 'layer_Isochrones_12',
-            pane: 'pane_Isochrones_12',
-            onEachFeature: pop_Isochrones_12,
-            style: style_Isochrones_12_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_12);
-        map.addLayer(layer_Isochrones_12);
-        function pop_Isochrones_13(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_13_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_13',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_13',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_13');
-        map.getPane('pane_Isochrones_13').style.zIndex = 413;
-        map.getPane('pane_Isochrones_13').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_13 = new L.geoJson(json_Isochrones_13, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_13',
-            layerName: 'layer_Isochrones_13',
-            pane: 'pane_Isochrones_13',
-            onEachFeature: pop_Isochrones_13,
-            style: style_Isochrones_13_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_13);
-        map.addLayer(layer_Isochrones_13);
-        function pop_Isochrones_14(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_14_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_14',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_14',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_14');
-        map.getPane('pane_Isochrones_14').style.zIndex = 414;
-        map.getPane('pane_Isochrones_14').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_14 = new L.geoJson(json_Isochrones_14, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_14',
-            layerName: 'layer_Isochrones_14',
-            pane: 'pane_Isochrones_14',
-            onEachFeature: pop_Isochrones_14,
-            style: style_Isochrones_14_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_14);
-        map.addLayer(layer_Isochrones_14);
-        function pop_Isochrones_15(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_15_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_15',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_15',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_15');
-        map.getPane('pane_Isochrones_15').style.zIndex = 415;
-        map.getPane('pane_Isochrones_15').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_15 = new L.geoJson(json_Isochrones_15, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_15',
-            layerName: 'layer_Isochrones_15',
-            pane: 'pane_Isochrones_15',
-            onEachFeature: pop_Isochrones_15,
-            style: style_Isochrones_15_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_15);
-        map.addLayer(layer_Isochrones_15);
-        function pop_Isochrones_16(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2"><strong>Library Name</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_16_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_16',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_16',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_16');
-        map.getPane('pane_Isochrones_16').style.zIndex = 416;
-        map.getPane('pane_Isochrones_16').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_16 = new L.geoJson(json_Isochrones_16, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_16',
-            layerName: 'layer_Isochrones_16',
-            pane: 'pane_Isochrones_16',
-            onEachFeature: pop_Isochrones_16,
-            style: style_Isochrones_16_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_16);
-        map.addLayer(layer_Isochrones_16);
-        function pop_Isochrones_17(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_17_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_17',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_17',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_17');
-        map.getPane('pane_Isochrones_17').style.zIndex = 417;
-        map.getPane('pane_Isochrones_17').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_17 = new L.geoJson(json_Isochrones_17, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_17',
-            layerName: 'layer_Isochrones_17',
-            pane: 'pane_Isochrones_17',
-            onEachFeature: pop_Isochrones_17,
-            style: style_Isochrones_17_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_17);
-        map.addLayer(layer_Isochrones_17);
-        function pop_Isochrones_18(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_18_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_18',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_18',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_18');
-        map.getPane('pane_Isochrones_18').style.zIndex = 418;
-        map.getPane('pane_Isochrones_18').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_18 = new L.geoJson(json_Isochrones_18, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_18',
-            layerName: 'layer_Isochrones_18',
-            pane: 'pane_Isochrones_18',
-            onEachFeature: pop_Isochrones_18,
-            style: style_Isochrones_18_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_18);
-        map.addLayer(layer_Isochrones_18);
-        function pop_Isochrones_19(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_19_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_19',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_19',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_19');
-        map.getPane('pane_Isochrones_19').style.zIndex = 419;
-        map.getPane('pane_Isochrones_19').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_19 = new L.geoJson(json_Isochrones_19, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_19',
-            layerName: 'layer_Isochrones_19',
-            pane: 'pane_Isochrones_19',
-            onEachFeature: pop_Isochrones_19,
-            style: style_Isochrones_19_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_19);
-        map.addLayer(layer_Isochrones_19);
-        function pop_Isochrones_20(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_20_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_20',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: false,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_20',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: false,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_20');
-        map.getPane('pane_Isochrones_20').style.zIndex = 420;
-        map.getPane('pane_Isochrones_20').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_20 = new L.geoJson(json_Isochrones_20, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Isochrones_20',
-            layerName: 'layer_Isochrones_20',
-            pane: 'pane_Isochrones_20',
-            onEachFeature: pop_Isochrones_20,
-            style: style_Isochrones_20_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_20);
-        map.addLayer(layer_Isochrones_20);
-        function pop_Isochrones_21(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_21_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_21',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: true,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_21',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: true,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_21');
-        map.getPane('pane_Isochrones_21').style.zIndex = 421;
-        map.getPane('pane_Isochrones_21').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_21 = new L.geoJson(json_Isochrones_21, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Isochrones_21',
-            layerName: 'layer_Isochrones_21',
-            pane: 'pane_Isochrones_21',
-            onEachFeature: pop_Isochrones_21,
-            style: style_Isochrones_21_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_21);
-        map.addLayer(layer_Isochrones_21);
-        function pop_Isochrones_22(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LON'] !== null ? autolinker.link(feature.properties['CENTER_LON'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['CENTER_LAT'] !== null ? autolinker.link(feature.properties['CENTER_LAT'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MINS'] !== null ? autolinker.link(feature.properties['AA_MINS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['AA_MODE'] !== null ? autolinker.link(feature.properties['AA_MODE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['TOTAL_POP'] !== null ? autolinker.link(feature.properties['TOTAL_POP'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Isochrones_22_0(feature) {
-            switch(String(feature.properties['AA_MINS'])) {
-                case '5':
-                    return {
-                pane: 'pane_Isochrones_22',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(43,131,186,0.5)',
-                interactive: true,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_Isochrones_22',
-                opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,171,176,0.5)',
-                interactive: true,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_Isochrones_22');
-        map.getPane('pane_Isochrones_22').style.zIndex = 422;
-        map.getPane('pane_Isochrones_22').style['mix-blend-mode'] = 'normal';
-        var layer_Isochrones_22 = new L.geoJson(json_Isochrones_22, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Isochrones_22',
-            layerName: 'layer_Isochrones_22',
-            pane: 'pane_Isochrones_22',
-            onEachFeature: pop_Isochrones_22,
-            style: style_Isochrones_22_0,
-        });
-        bounds_group.addLayer(layer_Isochrones_22);
-        map.addLayer(layer_Isochrones_22);
+        bounds_group.addLayer(layer_libraryLocations5k_14);
+        map.addLayer(layer_libraryLocations5k_14);
         setBounds();
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"AA_MINS": "int","Library Name": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_AA_MINS = document.createElement("div");
+            div_AA_MINS.id = "div_AA_MINS";
+            div_AA_MINS.className = "slider";
+            document.getElementById("menu").appendChild(div_AA_MINS);
+            var lab_AA_MINS = document.createElement('div');
+            lab_AA_MINS.innerHTML  = 'AA_MINS: <span id="val_AA_MINS"></span>';
+            lab_AA_MINS.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_AA_MINS);
+            var reset_AA_MINS = document.createElement('div');
+            reset_AA_MINS.innerHTML = 'clear filter';
+            reset_AA_MINS.className = 'filterlabel';
+            lab_AA_MINS.className = 'filterlabel';
+            reset_AA_MINS.onclick = function() {
+                sel_AA_MINS.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_AA_MINS);
+            var sel_AA_MINS = document.getElementById('div_AA_MINS');
+            noUiSlider.create(sel_AA_MINS, {
+                connect: true,
+                start: [5, 20],
+                step: 1,
+                format: wNumb({
+                    decimals: 0,
+                    }),
+                range: {
+                min: 5,
+                max: 20
+                }
+            });
+            sel_AA_MINS.noUiSlider.on('update', function (values) {
+            filterVals =[];
+            for (value in values){
+            filterVals.push(parseInt(value))
+            }
+            val_AA_MINS = document.getElementById('val_AA_MINS');
+            val_AA_MINS.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_LibraryName = document.createElement('div');
+            div_LibraryName.id = "div_LibraryName";
+            div_LibraryName.className= "filterselect";
+            document.getElementById("menu").appendChild(div_LibraryName);
+            sel_LibraryName = document.createElement('select');
+            sel_LibraryName.multiple = true;
+            sel_LibraryName.size = 10;
+            sel_LibraryName.id = "sel_LibraryName";
+            var LibraryName_options_str = "<option value='' unselected></option>";
+            sel_LibraryName.onchange = function(){filterFunc()};
+            LibraryName_options_str  += '<option value="Appledore">Appledore</option>';
+            LibraryName_options_str  += '<option value="Ashburton">Ashburton</option>';
+            LibraryName_options_str  += '<option value="Axminster">Axminster</option>';
+            LibraryName_options_str  += '<option value="Bampton">Bampton</option>';
+            LibraryName_options_str  += '<option value="Barnstaple">Barnstaple</option>';
+            LibraryName_options_str  += '<option value="Bideford">Bideford</option>';
+            LibraryName_options_str  += '<option value="Bovey Tracey">Bovey Tracey</option>';
+            LibraryName_options_str  += '<option value="Braunton">Braunton</option>';
+            LibraryName_options_str  += '<option value="Brixham">Brixham</option>';
+            LibraryName_options_str  += '<option value="Buckfastleigh">Buckfastleigh</option>';
+            LibraryName_options_str  += '<option value="Budleigh Salterton">Budleigh Salterton</option>';
+            LibraryName_options_str  += '<option value="Chagford">Chagford</option>';
+            LibraryName_options_str  += '<option value="Chudleigh">Chudleigh</option>';
+            LibraryName_options_str  += '<option value="Chulmleigh">Chulmleigh</option>';
+            LibraryName_options_str  += '<option value="Churston">Churston</option>';
+            LibraryName_options_str  += '<option value="Clyst Vale">Clyst Vale</option>';
+            LibraryName_options_str  += '<option value="Colyton">Colyton</option>';
+            LibraryName_options_str  += '<option value="Combe Martin">Combe Martin</option>';
+            LibraryName_options_str  += '<option value="Crediton">Crediton</option>';
+            LibraryName_options_str  += '<option value="Cullompton">Cullompton</option>';
+            LibraryName_options_str  += '<option value="Dartmouth">Dartmouth</option>';
+            LibraryName_options_str  += '<option value="Dawlish">Dawlish</option>';
+            LibraryName_options_str  += '<option value="Exeter">Exeter</option>';
+            LibraryName_options_str  += '<option value="Exmouth">Exmouth</option>';
+            LibraryName_options_str  += '<option value="Holsworthy">Holsworthy</option>';
+            LibraryName_options_str  += '<option value="Honiton">Honiton</option>';
+            LibraryName_options_str  += '<option value="Ilfracombe">Ilfracombe</option>';
+            LibraryName_options_str  += '<option value="Ivybridge">Ivybridge</option>';
+            LibraryName_options_str  += '<option value="Kingsbridge">Kingsbridge</option>';
+            LibraryName_options_str  += '<option value="Kingskerswell">Kingskerswell</option>';
+            LibraryName_options_str  += '<option value="Kingsteignton">Kingsteignton</option>';
+            LibraryName_options_str  += '<option value="Lynton">Lynton</option>';
+            LibraryName_options_str  += '<option value="Moretonhampstead">Moretonhampstead</option>';
+            LibraryName_options_str  += '<option value="Newton Abbot">Newton Abbot</option>';
+            LibraryName_options_str  += '<option value="Northam">Northam</option>';
+            LibraryName_options_str  += '<option value="Okehampton">Okehampton</option>';
+            LibraryName_options_str  += '<option value="Ottery St Mary">Ottery St Mary</option>';
+            LibraryName_options_str  += '<option value="Paignton">Paignton</option>';
+            LibraryName_options_str  += '<option value="Pinhoe">Pinhoe</option>';
+            LibraryName_options_str  += '<option value="Princetown">Princetown</option>';
+            LibraryName_options_str  += '<option value="Salcombe">Salcombe</option>';
+            LibraryName_options_str  += '<option value="Seaton">Seaton</option>';
+            LibraryName_options_str  += '<option value="Sidmouth">Sidmouth</option>';
+            LibraryName_options_str  += '<option value="South Molton">South Molton</option>';
+            LibraryName_options_str  += '<option value="St Thomas">St Thomas</option>';
+            LibraryName_options_str  += '<option value="Stoke Fleming">Stoke Fleming</option>';
+            LibraryName_options_str  += '<option value="Tavistock">Tavistock</option>';
+            LibraryName_options_str  += '<option value="Teignmouth">Teignmouth</option>';
+            LibraryName_options_str  += '<option value="Tiverton">Tiverton</option>';
+            LibraryName_options_str  += '<option value="Topsham">Topsham</option>';
+            LibraryName_options_str  += '<option value="Torquay">Torquay</option>';
+            LibraryName_options_str  += '<option value="Torrington">Torrington</option>';
+            LibraryName_options_str  += '<option value="Totnes">Totnes</option>';
+            LibraryName_options_str  += '<option value="Uffculme">Uffculme</option>';
+            sel_LibraryName.innerHTML = LibraryName_options_str;
+            div_LibraryName.appendChild(sel_LibraryName);
+            var lab_LibraryName = document.createElement('div');
+            lab_LibraryName.innerHTML = 'Library Name';
+            lab_LibraryName.className = 'filterlabel';
+            div_LibraryName.appendChild(lab_LibraryName);
+            var reset_LibraryName = document.createElement('div');
+            reset_LibraryName.innerHTML = 'clear filter';
+            reset_LibraryName.className = 'filterlabel';
+            reset_LibraryName.onclick = function() {
+                var options = document.getElementById("sel_LibraryName").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_LibraryName.appendChild(reset_LibraryName);
         </script>
     </body>
 </html>
