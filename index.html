@@ -35,24 +35,25 @@
         <script src="js/tailDT.js"></script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/wNumb.js"></script>
-        <script src="data/libraryLocations5a_1.js"></script>
+        <script src="data/Indices_of_Multiple_Deprivation_IMD_2019_1.js"></script>
         <script src="data/DriveTimescopy_2.js"></script>
         <script src="data/DriveTimes10mins_3.js"></script>
         <script src="data/DriveTimes5mins_4.js"></script>
-        <script src="data/libraryLocations5b_5.js"></script>
-        <script src="data/libraryLocations5c_6.js"></script>
-        <script src="data/libraryLocations5d_7.js"></script>
-        <script src="data/libraryLocations5e_8.js"></script>
-        <script src="data/libraryLocations5f_9.js"></script>
-        <script src="data/libraryLocations5g_10.js"></script>
-        <script src="data/libraryLocations5h_11.js"></script>
-        <script src="data/libraryLocations5i_12.js"></script>
-        <script src="data/libraryLocations5j_13.js"></script>
-        <script src="data/libraryLocations5k_14.js"></script>
+        <script src="data/libraryLocations5a_5.js"></script>
+        <script src="data/libraryLocations5b_6.js"></script>
+        <script src="data/libraryLocations5c_7.js"></script>
+        <script src="data/libraryLocations5d_8.js"></script>
+        <script src="data/libraryLocations5e_9.js"></script>
+        <script src="data/libraryLocations5f_10.js"></script>
+        <script src="data/libraryLocations5g_11.js"></script>
+        <script src="data/libraryLocations5h_12.js"></script>
+        <script src="data/libraryLocations5i_13.js"></script>
+        <script src="data/libraryLocations5j_14.js"></script>
+        <script src="data/libraryLocations5k_15.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[49.93026253659968,-5.132173897064543],[51.45563021543484,-2.1735088757618977]]);
+        }).fitBounds([[50.23344102371094,-4.7227772255122025],[51.24936830463316,-2.7503338779770985]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -72,57 +73,223 @@
         });
         layer_CartoLight_0;
         map.addLayer(layer_CartoLight_0);
-        function pop_libraryLocations5a_1(feature, layer) {
+        function pop_Indices_of_Multiple_Deprivation_IMD_2019_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">IMD Rank</th>\
+                        <td>' + (feature.properties['IMD_Decile'] !== null ? autolinker.link(feature.properties['IMD_Decile'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Local Authority</th>\
+                        <td>' + (feature.properties['LADnm'] !== null ? autolinker.link(feature.properties['LADnm'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2"><strong>Library Name</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Income Decile</th>\
+                        <td>' + (feature.properties['IncDec'] !== null ? autolinker.link(feature.properties['IncDec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Employment Decile</th>\
+                        <td>' + (feature.properties['EmpDec'] !== null ? autolinker.link(feature.properties['EmpDec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Education Decile</th>\
+                        <td>' + (feature.properties['EduDec'] !== null ? autolinker.link(feature.properties['EduDec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Health Deprivation and Disability Decile</th>\
+                        <td>' + (feature.properties['HDDDec'] !== null ? autolinker.link(feature.properties['HDDDec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Crime Decile</th>\
+                        <td>' + (feature.properties['CriDec'] !== null ? autolinker.link(feature.properties['CriDec'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5a_1_0() {
-            return {
-                pane: 'pane_libraryLocations5a_1',
-                radius: 4.0,
+        function style_Indices_of_Multiple_Deprivation_IMD_2019_1_0(feature) {
+            switch(String(feature.properties['IMD_Decile'])) {
+                case '1':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
                 opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
+                color: 'rgba(35,35,35,0.5)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1,
+                weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(229,182,54,1.0)',
-                interactive: false,
+                fillColor: 'rgba(215,25,28,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,84,55,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(246,144,83,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,190,116,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,223,154,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '6':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '7':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,242,180,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '8':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,228,170,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '9':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(145,203,169,0.5)',
+                interactive: true,
+            }
+                    break;
+                case '10':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(94,167,177,0.5)',
+                interactive: true,
+            }
+                    break;
+                case 'NULL':
+                    return {
+                pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,0.5)',
+                interactive: true,
+            }
+                    break;
             }
         }
-        map.createPane('pane_libraryLocations5a_1');
-        map.getPane('pane_libraryLocations5a_1').style.zIndex = 401;
-        map.getPane('pane_libraryLocations5a_1').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5a_1 = new L.geoJson(json_libraryLocations5a_1, {
+        map.createPane('pane_Indices_of_Multiple_Deprivation_IMD_2019_1');
+        map.getPane('pane_Indices_of_Multiple_Deprivation_IMD_2019_1').style.zIndex = 401;
+        map.getPane('pane_Indices_of_Multiple_Deprivation_IMD_2019_1').style['mix-blend-mode'] = 'normal';
+        var layer_Indices_of_Multiple_Deprivation_IMD_2019_1 = new L.geoJson(json_Indices_of_Multiple_Deprivation_IMD_2019_1, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5a_1',
-            layerName: 'layer_libraryLocations5a_1',
-            pane: 'pane_libraryLocations5a_1',
-            onEachFeature: pop_libraryLocations5a_1,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_libraryLocations5a_1_0(feature));
-            },
+            interactive: true,
+            dataVar: 'json_Indices_of_Multiple_Deprivation_IMD_2019_1',
+            layerName: 'layer_Indices_of_Multiple_Deprivation_IMD_2019_1',
+            pane: 'pane_Indices_of_Multiple_Deprivation_IMD_2019_1',
+            onEachFeature: pop_Indices_of_Multiple_Deprivation_IMD_2019_1,
+            style: style_Indices_of_Multiple_Deprivation_IMD_2019_1_0,
         });
-        bounds_group.addLayer(layer_libraryLocations5a_1);
-        map.addLayer(layer_libraryLocations5a_1);
+        bounds_group.addLayer(layer_Indices_of_Multiple_Deprivation_IMD_2019_1);
+        map.addLayer(layer_Indices_of_Multiple_Deprivation_IMD_2019_1);
         function pop_DriveTimescopy_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -411,7 +578,7 @@
         });
         bounds_group.addLayer(layer_DriveTimes5mins_4);
         map.addLayer(layer_DriveTimes5mins_4);
-        function pop_libraryLocations5b_5(feature, layer) {
+        function pop_libraryLocations5a_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -420,15 +587,15 @@
                         <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Library Name</strong><br />' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5b_5_0() {
+        function style_libraryLocations5a_5_0() {
             return {
-                pane: 'pane_libraryLocations5b_5',
+                pane: 'pane_libraryLocations5a_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -438,82 +605,31 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(225,89,137,1.0)',
-                interactive: false,
+                fillColor: 'rgba(229,182,54,1.0)',
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5b_5');
-        map.getPane('pane_libraryLocations5b_5').style.zIndex = 405;
-        map.getPane('pane_libraryLocations5b_5').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5b_5 = new L.geoJson(json_libraryLocations5b_5, {
+        map.createPane('pane_libraryLocations5a_5');
+        map.getPane('pane_libraryLocations5a_5').style.zIndex = 405;
+        map.getPane('pane_libraryLocations5a_5').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5a_5 = new L.geoJson(json_libraryLocations5a_5, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5b_5',
-            layerName: 'layer_libraryLocations5b_5',
-            pane: 'pane_libraryLocations5b_5',
-            onEachFeature: pop_libraryLocations5b_5,
+            interactive: true,
+            dataVar: 'json_libraryLocations5a_5',
+            layerName: 'layer_libraryLocations5a_5',
+            pane: 'pane_libraryLocations5a_5',
+            onEachFeature: pop_libraryLocations5a_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5b_5_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5a_5_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5b_5);
-        map.addLayer(layer_libraryLocations5b_5);
-        function pop_libraryLocations5c_6(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_libraryLocations5c_6_0() {
-            return {
-                pane: 'pane_libraryLocations5c_6',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(190,207,80,1.0)',
-                interactive: false,
-            }
-        }
-        map.createPane('pane_libraryLocations5c_6');
-        map.getPane('pane_libraryLocations5c_6').style.zIndex = 406;
-        map.getPane('pane_libraryLocations5c_6').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5c_6 = new L.geoJson(json_libraryLocations5c_6, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5c_6',
-            layerName: 'layer_libraryLocations5c_6',
-            pane: 'pane_libraryLocations5c_6',
-            onEachFeature: pop_libraryLocations5c_6,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_libraryLocations5c_6_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_libraryLocations5c_6);
-        map.addLayer(layer_libraryLocations5c_6);
-        function pop_libraryLocations5d_7(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5a_5);
+        map.addLayer(layer_libraryLocations5a_5);
+        function pop_libraryLocations5b_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -528,9 +644,111 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5d_7_0() {
+        function style_libraryLocations5b_6_0() {
             return {
-                pane: 'pane_libraryLocations5d_7',
+                pane: 'pane_libraryLocations5b_6',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(225,89,137,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_libraryLocations5b_6');
+        map.getPane('pane_libraryLocations5b_6').style.zIndex = 406;
+        map.getPane('pane_libraryLocations5b_6').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5b_6 = new L.geoJson(json_libraryLocations5b_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_libraryLocations5b_6',
+            layerName: 'layer_libraryLocations5b_6',
+            pane: 'pane_libraryLocations5b_6',
+            onEachFeature: pop_libraryLocations5b_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_libraryLocations5b_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_libraryLocations5b_6);
+        map.addLayer(layer_libraryLocations5b_6);
+        function pop_libraryLocations5c_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_libraryLocations5c_7_0() {
+            return {
+                pane: 'pane_libraryLocations5c_7',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,207,80,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_libraryLocations5c_7');
+        map.getPane('pane_libraryLocations5c_7').style.zIndex = 407;
+        map.getPane('pane_libraryLocations5c_7').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5c_7 = new L.geoJson(json_libraryLocations5c_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_libraryLocations5c_7',
+            layerName: 'layer_libraryLocations5c_7',
+            pane: 'pane_libraryLocations5c_7',
+            onEachFeature: pop_libraryLocations5c_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_libraryLocations5c_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_libraryLocations5c_7);
+        map.addLayer(layer_libraryLocations5c_7);
+        function pop_libraryLocations5d_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Library Name'] !== null ? autolinker.link(feature.properties['Library Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_libraryLocations5d_8_0() {
+            return {
+                pane: 'pane_libraryLocations5d_8',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -541,30 +759,30 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(152,125,183,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5d_7');
-        map.getPane('pane_libraryLocations5d_7').style.zIndex = 407;
-        map.getPane('pane_libraryLocations5d_7').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5d_7 = new L.geoJson(json_libraryLocations5d_7, {
+        map.createPane('pane_libraryLocations5d_8');
+        map.getPane('pane_libraryLocations5d_8').style.zIndex = 408;
+        map.getPane('pane_libraryLocations5d_8').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5d_8 = new L.geoJson(json_libraryLocations5d_8, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5d_7',
-            layerName: 'layer_libraryLocations5d_7',
-            pane: 'pane_libraryLocations5d_7',
-            onEachFeature: pop_libraryLocations5d_7,
+            interactive: true,
+            dataVar: 'json_libraryLocations5d_8',
+            layerName: 'layer_libraryLocations5d_8',
+            pane: 'pane_libraryLocations5d_8',
+            onEachFeature: pop_libraryLocations5d_8,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5d_7_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5d_8_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5d_7);
-        map.addLayer(layer_libraryLocations5d_7);
-        function pop_libraryLocations5e_8(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5d_8);
+        map.addLayer(layer_libraryLocations5d_8);
+        function pop_libraryLocations5e_9(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -579,9 +797,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5e_8_0() {
+        function style_libraryLocations5e_9_0() {
             return {
-                pane: 'pane_libraryLocations5e_8',
+                pane: 'pane_libraryLocations5e_9',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -592,30 +810,30 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(231,113,72,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5e_8');
-        map.getPane('pane_libraryLocations5e_8').style.zIndex = 408;
-        map.getPane('pane_libraryLocations5e_8').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5e_8 = new L.geoJson(json_libraryLocations5e_8, {
+        map.createPane('pane_libraryLocations5e_9');
+        map.getPane('pane_libraryLocations5e_9').style.zIndex = 409;
+        map.getPane('pane_libraryLocations5e_9').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5e_9 = new L.geoJson(json_libraryLocations5e_9, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5e_8',
-            layerName: 'layer_libraryLocations5e_8',
-            pane: 'pane_libraryLocations5e_8',
-            onEachFeature: pop_libraryLocations5e_8,
+            interactive: true,
+            dataVar: 'json_libraryLocations5e_9',
+            layerName: 'layer_libraryLocations5e_9',
+            pane: 'pane_libraryLocations5e_9',
+            onEachFeature: pop_libraryLocations5e_9,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5e_8_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5e_9_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5e_8);
-        map.addLayer(layer_libraryLocations5e_8);
-        function pop_libraryLocations5f_9(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5e_9);
+        map.addLayer(layer_libraryLocations5e_9);
+        function pop_libraryLocations5f_10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -630,9 +848,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5f_9_0() {
+        function style_libraryLocations5f_10_0() {
             return {
-                pane: 'pane_libraryLocations5f_9',
+                pane: 'pane_libraryLocations5f_10',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -643,30 +861,30 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(183,72,75,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5f_9');
-        map.getPane('pane_libraryLocations5f_9').style.zIndex = 409;
-        map.getPane('pane_libraryLocations5f_9').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5f_9 = new L.geoJson(json_libraryLocations5f_9, {
+        map.createPane('pane_libraryLocations5f_10');
+        map.getPane('pane_libraryLocations5f_10').style.zIndex = 410;
+        map.getPane('pane_libraryLocations5f_10').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5f_10 = new L.geoJson(json_libraryLocations5f_10, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5f_9',
-            layerName: 'layer_libraryLocations5f_9',
-            pane: 'pane_libraryLocations5f_9',
-            onEachFeature: pop_libraryLocations5f_9,
+            interactive: true,
+            dataVar: 'json_libraryLocations5f_10',
+            layerName: 'layer_libraryLocations5f_10',
+            pane: 'pane_libraryLocations5f_10',
+            onEachFeature: pop_libraryLocations5f_10,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5f_9_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5f_10_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5f_9);
-        map.addLayer(layer_libraryLocations5f_9);
-        function pop_libraryLocations5g_10(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5f_10);
+        map.addLayer(layer_libraryLocations5f_10);
+        function pop_libraryLocations5g_11(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -681,9 +899,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5g_10_0() {
+        function style_libraryLocations5g_11_0() {
             return {
-                pane: 'pane_libraryLocations5g_10',
+                pane: 'pane_libraryLocations5g_11',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -694,33 +912,33 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,158,23,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5g_10');
-        map.getPane('pane_libraryLocations5g_10').style.zIndex = 410;
-        map.getPane('pane_libraryLocations5g_10').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5g_10 = new L.geoJson(json_libraryLocations5g_10, {
+        map.createPane('pane_libraryLocations5g_11');
+        map.getPane('pane_libraryLocations5g_11').style.zIndex = 411;
+        map.getPane('pane_libraryLocations5g_11').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5g_11 = new L.geoJson(json_libraryLocations5g_11, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5g_10',
-            layerName: 'layer_libraryLocations5g_10',
-            pane: 'pane_libraryLocations5g_10',
-            onEachFeature: pop_libraryLocations5g_10,
+            interactive: true,
+            dataVar: 'json_libraryLocations5g_11',
+            layerName: 'layer_libraryLocations5g_11',
+            pane: 'pane_libraryLocations5g_11',
+            onEachFeature: pop_libraryLocations5g_11,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5g_10_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5g_11_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5g_10);
-        map.addLayer(layer_libraryLocations5g_10);
-        function pop_libraryLocations5h_11(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5g_11);
+        map.addLayer(layer_libraryLocations5g_11);
+        function pop_libraryLocations5h_12(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2"><strong>latitude</strong><br />' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
@@ -732,9 +950,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5h_11_0() {
+        function style_libraryLocations5h_12_0() {
             return {
-                pane: 'pane_libraryLocations5h_11',
+                pane: 'pane_libraryLocations5h_12',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -745,30 +963,30 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(232,113,141,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5h_11');
-        map.getPane('pane_libraryLocations5h_11').style.zIndex = 411;
-        map.getPane('pane_libraryLocations5h_11').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5h_11 = new L.geoJson(json_libraryLocations5h_11, {
+        map.createPane('pane_libraryLocations5h_12');
+        map.getPane('pane_libraryLocations5h_12').style.zIndex = 412;
+        map.getPane('pane_libraryLocations5h_12').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5h_12 = new L.geoJson(json_libraryLocations5h_12, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5h_11',
-            layerName: 'layer_libraryLocations5h_11',
-            pane: 'pane_libraryLocations5h_11',
-            onEachFeature: pop_libraryLocations5h_11,
+            interactive: true,
+            dataVar: 'json_libraryLocations5h_12',
+            layerName: 'layer_libraryLocations5h_12',
+            pane: 'pane_libraryLocations5h_12',
+            onEachFeature: pop_libraryLocations5h_12,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5h_11_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5h_12_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5h_11);
-        map.addLayer(layer_libraryLocations5h_11);
-        function pop_libraryLocations5i_12(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5h_12);
+        map.addLayer(layer_libraryLocations5h_12);
+        function pop_libraryLocations5i_13(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -783,9 +1001,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5i_12_0() {
+        function style_libraryLocations5i_13_0() {
             return {
-                pane: 'pane_libraryLocations5i_12',
+                pane: 'pane_libraryLocations5i_13',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -796,30 +1014,30 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(141,90,153,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5i_12');
-        map.getPane('pane_libraryLocations5i_12').style.zIndex = 412;
-        map.getPane('pane_libraryLocations5i_12').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5i_12 = new L.geoJson(json_libraryLocations5i_12, {
+        map.createPane('pane_libraryLocations5i_13');
+        map.getPane('pane_libraryLocations5i_13').style.zIndex = 413;
+        map.getPane('pane_libraryLocations5i_13').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5i_13 = new L.geoJson(json_libraryLocations5i_13, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5i_12',
-            layerName: 'layer_libraryLocations5i_12',
-            pane: 'pane_libraryLocations5i_12',
-            onEachFeature: pop_libraryLocations5i_12,
+            interactive: true,
+            dataVar: 'json_libraryLocations5i_13',
+            layerName: 'layer_libraryLocations5i_13',
+            pane: 'pane_libraryLocations5i_13',
+            onEachFeature: pop_libraryLocations5i_13,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5i_12_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5i_13_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5i_12);
-        map.addLayer(layer_libraryLocations5i_12);
-        function pop_libraryLocations5j_13(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5i_13);
+        map.addLayer(layer_libraryLocations5i_13);
+        function pop_libraryLocations5j_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>longitude</strong><br />' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -834,9 +1052,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5j_13_0() {
+        function style_libraryLocations5j_14_0() {
             return {
-                pane: 'pane_libraryLocations5j_13',
+                pane: 'pane_libraryLocations5j_14',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -847,30 +1065,30 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(243,166,178,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5j_13');
-        map.getPane('pane_libraryLocations5j_13').style.zIndex = 413;
-        map.getPane('pane_libraryLocations5j_13').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5j_13 = new L.geoJson(json_libraryLocations5j_13, {
+        map.createPane('pane_libraryLocations5j_14');
+        map.getPane('pane_libraryLocations5j_14').style.zIndex = 414;
+        map.getPane('pane_libraryLocations5j_14').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5j_14 = new L.geoJson(json_libraryLocations5j_14, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5j_13',
-            layerName: 'layer_libraryLocations5j_13',
-            pane: 'pane_libraryLocations5j_13',
-            onEachFeature: pop_libraryLocations5j_13,
+            interactive: true,
+            dataVar: 'json_libraryLocations5j_14',
+            layerName: 'layer_libraryLocations5j_14',
+            pane: 'pane_libraryLocations5j_14',
+            onEachFeature: pop_libraryLocations5j_14,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5j_13_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5j_14_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5j_13);
-        map.addLayer(layer_libraryLocations5j_13);
-        function pop_libraryLocations5k_14(feature, layer) {
+        bounds_group.addLayer(layer_libraryLocations5j_14);
+        map.addLayer(layer_libraryLocations5j_14);
+        function pop_libraryLocations5k_15(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
@@ -885,9 +1103,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_libraryLocations5k_14_0() {
+        function style_libraryLocations5k_15_0() {
             return {
-                pane: 'pane_libraryLocations5k_14',
+                pane: 'pane_libraryLocations5k_15',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -898,29 +1116,29 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(114,155,111,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_libraryLocations5k_14');
-        map.getPane('pane_libraryLocations5k_14').style.zIndex = 414;
-        map.getPane('pane_libraryLocations5k_14').style['mix-blend-mode'] = 'normal';
-        var layer_libraryLocations5k_14 = new L.geoJson(json_libraryLocations5k_14, {
+        map.createPane('pane_libraryLocations5k_15');
+        map.getPane('pane_libraryLocations5k_15').style.zIndex = 415;
+        map.getPane('pane_libraryLocations5k_15').style['mix-blend-mode'] = 'normal';
+        var layer_libraryLocations5k_15 = new L.geoJson(json_libraryLocations5k_15, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_libraryLocations5k_14',
-            layerName: 'layer_libraryLocations5k_14',
-            pane: 'pane_libraryLocations5k_14',
-            onEachFeature: pop_libraryLocations5k_14,
+            interactive: true,
+            dataVar: 'json_libraryLocations5k_15',
+            layerName: 'layer_libraryLocations5k_15',
+            pane: 'pane_libraryLocations5k_15',
+            onEachFeature: pop_libraryLocations5k_15,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_libraryLocations5k_14_0(feature));
+                return L.circleMarker(latlng, style_libraryLocations5k_15_0(feature));
             },
         });
-        bounds_group.addLayer(layer_libraryLocations5k_14);
-        map.addLayer(layer_libraryLocations5k_14);
+        bounds_group.addLayer(layer_libraryLocations5k_15);
+        map.addLayer(layer_libraryLocations5k_15);
         setBounds();
         var mapDiv = document.getElementById('map');
         var row = document.createElement('div');
@@ -941,7 +1159,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"AA_MINS": "int","Library Name": "str"};
+        var Filters = {"AA_MINS": "int","IMD_Decile": "int","Library Name": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -1038,7 +1256,7 @@
             div_AA_MINS.className = "slider";
             document.getElementById("menu").appendChild(div_AA_MINS);
             var lab_AA_MINS = document.createElement('div');
-            lab_AA_MINS.innerHTML  = 'AA_MINS: <span id="val_AA_MINS"></span>';
+            lab_AA_MINS.innerHTML  = 'Minutes from Library: <span id="val_AA_MINS"></span>';
             lab_AA_MINS.className = 'filterlabel';
             document.getElementById("menu").appendChild(lab_AA_MINS);
             var reset_AA_MINS = document.createElement('div');
@@ -1069,6 +1287,46 @@
             }
             val_AA_MINS = document.getElementById('val_AA_MINS');
             val_AA_MINS.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_IMD_Decile = document.createElement("div");
+            div_IMD_Decile.id = "div_IMD_Decile";
+            div_IMD_Decile.className = "slider";
+            document.getElementById("menu").appendChild(div_IMD_Decile);
+            var lab_IMD_Decile = document.createElement('div');
+            lab_IMD_Decile.innerHTML  = 'IMD Range: <span id="val_IMD_Decile"></span>';
+            lab_IMD_Decile.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_IMD_Decile);
+            var reset_IMD_Decile = document.createElement('div');
+            reset_IMD_Decile.innerHTML = 'clear filter';
+            reset_IMD_Decile.className = 'filterlabel';
+            lab_IMD_Decile.className = 'filterlabel';
+            reset_IMD_Decile.onclick = function() {
+                sel_IMD_Decile.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_IMD_Decile);
+            var sel_IMD_Decile = document.getElementById('div_IMD_Decile');
+            noUiSlider.create(sel_IMD_Decile, {
+                connect: true,
+                start: [1, 10],
+                step: 1,
+                format: wNumb({
+                    decimals: 0,
+                    }),
+                range: {
+                min: 1,
+                max: 10
+                }
+            });
+            sel_IMD_Decile.noUiSlider.on('update', function (values) {
+            filterVals =[];
+            for (value in values){
+            filterVals.push(parseInt(value))
+            }
+            val_IMD_Decile = document.getElementById('val_IMD_Decile');
+            val_IMD_Decile.innerHTML = values.join(' - ');
                 filterFunc()
             });
             document.getElementById("menu").appendChild(
